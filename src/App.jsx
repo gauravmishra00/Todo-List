@@ -1,33 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React, { useState } from "react"
+import Input from "./components/Input"
+import { useSelector } from "react-redux"
 function App() {
-  const [count, setCount] = useState(0)
-
+  const useTodo = useSelector(state=>state.todo)
+  const [todos,setTodos] = useState([])
+  setTodos(useTodo)
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <div className="flex justify-center my-10 flex-col ">
+    <h1 className='border text-gray-700 bg-gray-400  w-dvh mb-10'>Todo List</h1>
+    <Input/>
+    <div>
+      {
+        todos?.map((todo)=>(
+          <div key={todo.id}>
+            <Todo todo={todo.text}/>
+          </div>
+        ))
+      }
+    </div>
+    </div>
     </>
   )
 }
