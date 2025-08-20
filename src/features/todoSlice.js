@@ -1,10 +1,13 @@
 import { createSlice , nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-    todos : {
-        id :1,
-        text:"task 1"
-    }
+    todos : [
+        //  {
+        //     id :nanoid(),
+        //     text:"text",
+        //     isCompeleted :false
+        // }
+    ]
 }
 const todo = createSlice({
     name : "todo",
@@ -13,15 +16,31 @@ const todo = createSlice({
     {
         addTodo : (state,action)=>
         {
-            state.todos.text = action.payload.text
-            state.todos.id = action.payload.id
+            const todo = {
+                id : nanoid(),
+                text : action.payload
+            }
+            state.todos.push(todo)
         },
         removeTodo : (state,action)=>{
-            state.todos.id = action.payload.id
+            state.todos = state.todos.filter((todo)=>todo.id!==action.payload)
+        },
+        updateTodo : (state,action)=>
+        {
+            state.todos = state.todos.map((todo)=>
+            (
+                todo.id === action.payload.id ? {...todo,text:action.payload.text}  : todo
+            )
+            )
+        },
+        isCompelete : (state,action)=>{
+            state.todos = state.todos.map(
+                (todo)=>(todo.id===action.payload.id?{...todo,isCompeleted:!todo.isCompeleted}:todo)
+            )
         }
     }
 }
 )
 
-export const {addTodo,removeTodo} = todo.actions;
+export const {addTodo,removeTodo,updateTodo,isCompelete} = todo.actions;
 export default todo.reducer
