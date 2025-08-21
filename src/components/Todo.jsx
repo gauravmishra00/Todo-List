@@ -23,16 +23,18 @@ function Todo({todo,id}) {
     dispatch(isCompelete(id))
   },[complete])
   return (
-    <div className='bg-yellow-500 mb-2 flex'>
+    <div className=' w-[80%] h-10 mx-auto mt-5 flex items-center'>
       <label htmlFor="check">
-        <input 
+
+      <input 
       type="checkbox" 
+      className='w-5 h-5 '
       // checked
       onChange={(e)=>setComplete(e.target.checked)}
       />
       </label>
     <input 
-    className={`border mr-5 w-144 ${complete? "line-through":"none"}`}
+    className={`border mr-5 w-144 flex-1 ${complete? "line-through":"none"} `}
     type="text"
     value={text}
     readOnly= {!editable}

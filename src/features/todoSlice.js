@@ -1,7 +1,7 @@
-import { createSlice , nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
-    todos : [
+    todos: [
         //  {
         //     id :nanoid(),
         //     text:"text",
@@ -10,37 +10,36 @@ const initialState = {
     ]
 }
 const todo = createSlice({
-    name : "todo",
+    name: "todo",
     initialState,
-    reducers :
+    reducers:
     {
-        addTodo : (state,action)=>
-        {
+        addTodo: (state, action) => {
             const todo = {
-                id : nanoid(),
-                text : action.payload
+                id: nanoid(),
+                text: action.payload
             }
             state.todos.push(todo)
         },
-        removeTodo : (state,action)=>{
-            state.todos = state.todos.filter((todo)=>todo.id!==action.payload)
+        removeTodo: (state, action) => {
+            state.todos = state.todos.filter((todo) => todo.id !== action.payload)
         },
-        updateTodo : (state,action)=>
-        {
-            state.todos = state.todos.map((todo)=>
+        updateTodo: (state, action) => {
+            state.todos = state.todos.map((todo) =>
             (
-                todo.id === action.payload.id ? {...todo,text:action.payload.text}  : todo
+                todo.id === action.payload.id ? { ...todo, text: action.payload.text } : todo
             )
             )
         },
-        isCompelete : (state,action)=>{
+        isCompelete: (state, action) => {
             state.todos = state.todos.map(
-                (todo)=>(todo.id===action.payload.id?{...todo,isCompeleted:!todo.isCompeleted}:todo)
+                (todo) => (todo.id === action.payload.id ? { ...todo, isCompeleted: !todo.isCompeleted } : todo)
             )
-        }
+        },
+        
     }
 }
 )
 
-export const {addTodo,removeTodo,updateTodo,isCompelete} = todo.actions;
+export const { addTodo, removeTodo, updateTodo, isCompelete } = todo.actions;
 export default todo.reducer
